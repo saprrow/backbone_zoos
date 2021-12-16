@@ -123,7 +123,7 @@ class ViT(nn.Module):
         p = self.patch_size
         x = rearrange(img, 'b c (h p1) (w p2) -> b (h w) (p1 p2 c)', p1 = p, p2 = p)
         x = self.patch_to_embedding(x) # x.shape=[b,49,128]
-        b, n, _ = x.shape # n = 49
+        b, n, _ = x.shape # n = num_patches
 
         cls_tokens = repeat(self.cls_token, '() n d -> b n d', b = b)
         x = torch.cat((cls_tokens, x), dim=1) # x.shape=[b,50,128]
